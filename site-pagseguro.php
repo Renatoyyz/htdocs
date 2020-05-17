@@ -3,8 +3,10 @@
 use \Hcode\Page;
 use \Hcode\Model\User;
 use \Hcode\Model\Order;
-use \GuzzleHttp\Client;
+
+
 use \Hcode\PagSeguro\Config;
+use \Hcode\PagSeguro\Transporter;
 
 $app->get('/payment', function(){
 
@@ -21,34 +23,18 @@ $app->get('/payment', function(){
         array_push($years, $y);
     }
 
-    $page = new Page();
+    $page = new Page([
+        "footer"=>false
+    ]);
 
     $page->setTpl("payment",[
         "order"=>$order->getValues(),
         "msgError"=>Order::getError(),
         "years"=>$years,
         "pagseguro"=>[
-            "urlJS"=>Config::getUrlJS()
+            "urlJS"=>Config::getUrlJS(),
+            "id"=>Transporter::createSession()
         ]
     ]);
-
-});
-
-$app->get('/payment/pagseguro', function() {
-
-    echo "Renato: </br>";
-    $client = new Client();
-    $response = $client->request('POST', Config::getUrlSessions() . "?" . http_build_query(Config::getAuthentication()), 
-            [
-                'verify'=>false
-            ] 
-    );
-    
-    echo "Oliveira: </br>";
-
-    // echo $response->getStatusCode(); // 200
-    // echo $response->getHeaderLine('content-type'); // 'application/json; charset=utf8'
-     echo $response->getBody()->getContents(); // '{"id": 1420053, "name": "guzzle", ...}'
-    exit;
 
 });
