@@ -18,6 +18,9 @@ class Config {//class
     const SANDBOX_URL_JS = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
     const PRODUCTION_URL_JS = "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
 
+    const MAX_INSTALLMENT_NO_INTEREST = 6;// Máximo de parcelas que a loja assume os juros
+    const MAX_INSTALLMENT = 10;//Máximo de parcelas
+    
     public static function getAuthentication()
     {//func 1
 
