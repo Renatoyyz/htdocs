@@ -280,7 +280,7 @@
         }//func 2
 
         PagSeguroDirectPayment.getPaymentMethods({
-            amount: 1000.0,//parseFloat("<?php echo htmlspecialchars( $order["vltotal"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"),//valor monetario
+            amount: parseFloat("<?php echo htmlspecialchars( $order["vltotal"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"),//valor monetario
             success: function (response) {
                 // Retorna os meios de pagamento disponíveis.
                 var tplDebit = Handlebars.compile($("#tpl-payment-debit").html());
@@ -336,7 +336,7 @@
                         //bandeira encontrada
 
                         $("#brand_field").val(response.brand.name);
-                        // console.log(response.brand.name);
+                         console.log(response.brand.name);
 
                                 PagSeguroDirectPayment.getInstallments({
                                     amount: parseFloat("<?php echo htmlspecialchars( $order["vltotal"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"),
@@ -468,10 +468,18 @@
                 expirationYear: params.year, // Ano da expiração do cartão, é necessário os 4 dígitos.
                 success: function (response) {
                     // Retorna o cartão tokenizado.
+                    params.token = response.card.token;
+                    params.hash = PagSeguroDirectPayment.getSenderHash();
 
-                    console.log("TOKEN", response);
-                    console.log("HASH", PagSeguroDirectPayment.getSenderHash());
-                    console.log("params",params);
+                    $.post(
+
+                        "/payment/credit",
+                        $.param(params),
+                        function(r){
+                            console.log(r);
+                        }
+
+                    );
 
                 },
                 error: function (response) {
