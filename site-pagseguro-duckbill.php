@@ -9,7 +9,10 @@ use Hcode\PagSeguro\Transporter;
 $app->get('/payment_duckbill', function(){
 
     $order = [
-        "vltotal"=>234.34
+        "vltotal"=>234.34,
+        "cardBin"=>4111111111111111,
+        "yearCard"=>22,
+        "mouthCard"=>3
     ];
 
     $page = new Page([
@@ -20,8 +23,6 @@ $app->get('/payment_duckbill', function(){
 	$page->setTpl("payment_duckbill", [
         "order"=>$order,
         "msgError"=>"Um erro qualquer",
-        "year"=>"22",
-        "mouth"=>"02",
         "pagseguro"=>[
             "urlJS"=>Config::getUrlJS(),
             "id"=>Transporter::createSession()

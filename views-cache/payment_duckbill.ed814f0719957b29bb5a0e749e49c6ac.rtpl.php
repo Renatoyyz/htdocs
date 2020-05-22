@@ -45,8 +45,8 @@
             <h4 class="mb-3">Valor da Compra</h4>
             <?php echo htmlspecialchars( $order["vltotal"], ENT_COMPAT, 'UTF-8', FALSE ); ?></br>
             <?php echo htmlspecialchars( $msgError, ENT_COMPAT, 'UTF-8', FALSE ); ?></br>
-            <?php echo htmlspecialchars( $year, ENT_COMPAT, 'UTF-8', FALSE ); ?></br>
-            <?php echo htmlspecialchars( $mouth, ENT_COMPAT, 'UTF-8', FALSE ); ?></br>
+            <?php echo htmlspecialchars( $order["yearCard"], ENT_COMPAT, 'UTF-8', FALSE ); ?></br>
+            <?php echo htmlspecialchars( $order["mouthCard"], ENT_COMPAT, 'UTF-8', FALSE ); ?></br>
             <?php echo htmlspecialchars( $pagseguro["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?></br>
 
             <div id="alert-error" class="alert alert-danger hide">
@@ -70,6 +70,10 @@
               <div class="d-block my-3">
                 
               </div>
+
+              <!-- Campo criado na função do pagseguro PagSeguroDirectPayment.getBrand-->
+              <input type="hidden" name="brand" id="brand_field" >
+
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="cc-name">Nome no Cartão</label>
@@ -158,16 +162,16 @@
               // Retorna os meios de pagamento disponíveis.
               //Devolve os bancos disponíveis para Débito
               $.each(response.paymentMethods.ONLINE_DEBIT.options,  function(index, option){
-                console.log(option.name);
-                //console.log(option.images.MEDIUM.path);
-                console.log(option.displayName);
+                // console.log(option.name);
+                // console.log(option.images.MEDIUM.path);
+                // console.log(option.displayName);
               });
 
               //Devolve os bandeiras disponíveis para Crédito
               $.each(response.paymentMethods.CREDIT_CARD.options,  function(index, option){
-                console.log(option.name);
-                //console.log(option.images.MEDIUM.path);
-                console.log(option.displayName);
+                // console.log(option.name);
+                // console.log(option.images.MEDIUM.path);
+                // console.log(option.displayName);
               });
             },
             error: function (response) {
@@ -182,6 +186,28 @@
               // Callback para todas chamadas.
             }
           });
+
+          PagSeguroDirectPayment.getBrand({
+              cardBin: parseInt("<?php echo htmlspecialchars( $order["cardBin"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"),
+              success: function (response) {
+                //bandeira encontrada
+                console.log("Sucesso getBrand");
+                console.log(response);
+                $("#brand_field").val(response.brand.name);//vai criar um campo no html, colocar como hiden
+              },
+              error: function (response) {
+                //tratamento do erro
+                  var errors = [];
+                  for (var code in response.errors) {
+                    errors.push(response.errors[code]);
+                  }
+                  showError(errors.toString());
+              },
+              complete: function (response) {
+                //tratamento comum para todas chamadas
+              }
+            });
+
       </script>
     
   </body>
