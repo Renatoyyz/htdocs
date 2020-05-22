@@ -73,6 +73,8 @@
 
               <!-- Campo criado na função do pagseguro PagSeguroDirectPayment.getBrand-->
               <input type="hidden" name="brand" id="brand_field" >
+              <!-- Campo criado na função do pagseguro PagSeguroDirectPayment.getInstallments-->
+              <input type="hidden" name="totalamount" id="total_amount" >
 
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -150,12 +152,14 @@
       </script>
 
       <script>
-
+// Função de erro----------------------------------------------------------------------------->
         function showError(error){
           $("#alert-error span.msg").text(error);
           $("#alert-error").removeClass("hide");
         }
+// Função de erro----------------------------------------------------------------------------->
 
+// Função getPaymentMethods------------------------------------------------------------------->
         PagSeguroDirectPayment.getPaymentMethods({
             amount: parseFloat("{$order.vltotal}"),
             success: function (response) {
@@ -186,15 +190,46 @@
               // Callback para todas chamadas.
             }
           });
+// Função getPaymentMethods------------------------------------------------------------------->
 
+// Função getBrand---------------------------------------------------------------------------->
           PagSeguroDirectPayment.getBrand({
               cardBin: parseInt("{$order.cardBin}"),
-              success: function (response) {
+              success: function (response) {//success getBrand
                 //bandeira encontrada
-                console.log("Sucesso getBrand");
-                console.log(response);
+                // console.log("Sucesso getBrand");
+                // console.log(response);
                 $("#brand_field").val(response.brand.name);//vai criar um campo no html, colocar como hiden
-              },
+
+                // Função getBrand---------------------------------------------------------------------------->
+                    PagSeguroDirectPayment.getInstallments({
+                        amount: parseFloat("{$order.vltotal}"),
+                        maxInstallmentNoInterest: parseInt("{$pagseguro.maxInstallmentNoInterest}"),
+                        brand: response.brand.name,
+                        success: function (response) {
+                          // Retorna as opções de parcelamento disponíveis
+                          var formatReal = [];
+                          $.each(response.installments, function(index, installment){
+                                formatReal.push(index, installment);
+                          });
+                          console.log(formatReal[1][0].totalAmount);//pega somente uma parcela
+                          $("#total_amount").val(formatReal[1][0].totalAmount);//vai criar um campo no html, colocar como hiden
+                        },
+                        error: function (response) {
+                          // callback para chamadas que falharam.
+                            var errors = [];
+                            for (var code in response.errors) {
+                              errors.push(response.errors[code]);
+                            }
+                            showError(errors.toString());
+                        },
+                        complete: function (response) {
+                          // Callback para todas chamadas.
+                        }
+                    });
+                // Função getBrand---------------------------------------------------------------------------->
+
+              },//success getBrand
               error: function (response) {
                 //tratamento do erro
                   var errors = [];
@@ -207,6 +242,11 @@
                 //tratamento comum para todas chamadas
               }
             });
+
+
+// Função getInstallments--------------------------------------------------------------------->
+        
+// Função getInstallments--------------------------------------------------------------------->
 
       </script>
     

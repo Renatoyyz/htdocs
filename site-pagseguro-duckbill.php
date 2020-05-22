@@ -25,7 +25,9 @@ $app->get('/payment_duckbill', function(){
         "msgError"=>"Um erro qualquer",
         "pagseguro"=>[
             "urlJS"=>Config::getUrlJS(),
-            "id"=>Transporter::createSession()
+            "id"=>Transporter::createSession(),
+            "maxInstallmentNoInterest"=>Config::MAX_INSTALLMENT_NO_INTEREST,
+            "maxInstallment"=>Config::MAX_INSTALLMENT
         ]
     ]);
   
