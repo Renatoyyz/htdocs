@@ -2,6 +2,10 @@
 
 namespace Hcode\PagSeguro;
 
+use Exception;
+use DOMDocument;
+use DOMElement;
+
 class Document {//class
 
     private $type;
@@ -30,7 +34,7 @@ class Document {//class
 
     }//construct
 
-    public static function isValidCPF($number):bollean{//isValidCPF
+    public static function isValidCPF($number):bool{//isValidCPF
 
         $number = preg_replace('/[^0-9]/', '', (string) $number);
 

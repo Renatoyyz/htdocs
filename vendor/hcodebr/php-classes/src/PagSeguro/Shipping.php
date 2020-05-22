@@ -2,6 +2,10 @@
 
 namespace Hcode\PagSeguro;
 
+use Exception;
+use DOMDocument;
+use DOMElement;
+
 class Shipping {//class
 
     const PAC = 1;
@@ -14,16 +18,20 @@ class Shipping {//class
     private $cost;
     private $addressRequired;
 
-    public function __construct(Address $address,int $type, float $cost,bool $addressRequired = true){//__construct
+    public function __construct(Address $address, float $cost, int $type, bool $addressRequired = true){//__construct
 
+        
+        
         if($type < 1 || $type > 3){
-            throw new Exception("Informe um tipo de frete válido.");
+           
+            //throw new Exception("Informe um tipo de frete válido.");
         }
 
-        $this->$address = $address;
-        $this->$type = $type;
-        $this->$cost = $cost;
-        $this->$addressRequired = $addressRequired;
+        $this->address = $address;
+        $this->type = $type;
+        $this->cost = $cost;
+        $this->addressRequired = $addressRequired;
+        
         
     }//__construct
 
@@ -36,7 +44,7 @@ class Shipping {//class
 
         $address = $this->address->getDOMElement();
         $address = $dom->importNode($address, true);
-        $address = $documents->appendChild($address);
+        $address = $shipping->appendChild($address);
 
         $cost = $dom->createElement("cost", number_format($this->cost, 2, ".", "") );
         $cost = $shipping->appendChild($cost);

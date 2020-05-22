@@ -1,6 +1,9 @@
 <?php
 
 namespace Hcode\PagSeguro;
+use Exception;
+use DOMDocument;
+use DOMElement;
 
 class Phone {//class
 
@@ -13,7 +16,7 @@ class Phone {//class
             throw new Exception("Informe o DDD do telefone.");
         }//if 1
 
-        if( !$number || strlen($number) < 8 || $strlen($number) > 9 ){//if 2
+        if( !$number || strlen($number) < 8 || strlen($number) > 9 ){//if 2
             throw new Exception("Informe o número do telefone.");
         }//if 2
 

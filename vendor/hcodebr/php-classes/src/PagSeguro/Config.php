@@ -8,9 +8,9 @@ class Config {//class
 
     const SANDBOX_EMAIL = "desenvolvimento@witcare.com.br";
     const PRODUCTION_EMAIL = "desenvolvimento@witcare.com.br";
-    
+                           
     const SANDBOX_TOKEN = "BE25B897CD2849CABB5CDC483679BC6D";
-    const PRODUCTION_TOKEN = "521e9df8-8c7d-4c22-934f-b002168afc1dc0a27a9d4e95a9d95bb13164b4bb1974bfd0-017a-4107-a628-3698660d9f7f";
+    const PRODUCTION_TOKEN = "32cb96bb-1a46-4111-bd85-f00035ff8542cc2d57c249c4832a921c0de5e713f2c052fe-b05f-45df-9edc-5af49d9b32df";
 
     const SANDBOX_SESSIONS = "https://ws.sandbox.pagseguro.uol.com.br/v2/sessions";
     const PRODUCTION_SESSIONS = "https://ws.pagseguro.uol.com.br/v2/sessions";

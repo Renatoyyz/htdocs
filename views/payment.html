@@ -323,8 +323,9 @@
                 
             }
         });
+        
 
-        $("#number_field").on("change", function(){
+        $("#number_field").on("change", function(){//#number_field
 
             var value = $(this).val();
 
@@ -411,7 +412,7 @@
 
             }
 
-        });
+        });//#number_field
 
         function isValidCPF(number){//valida cpf
 
@@ -437,7 +438,7 @@
  
         }//valida cpf
 
-        $("#form-credit").on("submit", function(e){
+        $("#form-credit").on("submit", function(e){//#form-credit
 
             e.preventDefault();//cancela o envio do formulário
 
@@ -458,7 +459,7 @@
 
             });
 
-           // console.log(params);
+         //console.log(params);
 
             PagSeguroDirectPayment.createCardToken({
                 cardNumber: params.number, // Número do cartão de crédito
@@ -470,21 +471,20 @@
                     // Retorna o cartão tokenizado.
                     params.token = response.card.token;
                     params.hash = PagSeguroDirectPayment.getSenderHash();
-
+                    console.log(params);
+                    console.log('Iniciou o submit success');
                     $.post(
-
                         "/payment/credit",
-                        $.param(params),
-                        function(r){
-                            console.log(r);
-                        }
-
+                        $.param(params)
+                        // function(r){
+                        //     console.log(r);
+                        // }
                     );
 
                 },
                 error: function (response) {
                     // Callback para chamadas que falharam.
-
+                   // console.log('Iniciou o submit error');
                         var errors = [];
 
                         for (var code in response.errors) {
@@ -496,13 +496,14 @@
                 },
                 complete: function (response) {
                     // Callback para todas chamadas.
+                    //console.log('Iniciou o submit complete');
                     $("#form-credit [type=submit]").removeAttr("disabled");
                 }
             });
 
             
 
-        });
+        });//#form-credit
 
     }//func 1
     );
