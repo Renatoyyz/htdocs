@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
  <link href="/assets/dist/css/bootstrap.css" rel="stylesheet">
+ <link rel="stylesheet" href="/res/site/css/bootstrap.min.css">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -47,6 +48,14 @@
             {$year}</br>
             {$mouth}</br>
             {$pagseguro.id}</br>
+
+            <div id="alert-error" class="alert alert-danger hide">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              <span class="msg">Error</span>
+            </div>
+            
             <form action="/payment_duckbill/credit" class="needs-validation" method="POST">
 
               <div class="row">
@@ -122,6 +131,7 @@
               integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
               crossorigin="anonymous">
       </script>
+      <script src="/res/site/js/handlebars-v4.010.js"></script>
       <script>
           window.jQuery || document.write('<script src="/assets/js/vendor/jquery.slim.min.js"><\/script>')
       </script>
@@ -133,6 +143,45 @@
 
       <script type="text/javascript">
           PagSeguroDirectPayment.setSessionId('{$pagseguro.id}');
+      </script>
+
+      <script>
+
+        function showError(error){
+          $("#alert-error span.msg").text(error);
+          $("#alert-error").removeClass("hide");
+        }
+
+        PagSeguroDirectPayment.getPaymentMethods({
+            amount: parseFloat("{$order.vltotal}"),
+            success: function (response) {
+              // Retorna os meios de pagamento disponíveis.
+              //Devolve os bancos disponíveis para Débito
+              $.each(response.paymentMethods.ONLINE_DEBIT.options,  function(index, option){
+                console.log(option.name);
+                //console.log(option.images.MEDIUM.path);
+                console.log(option.displayName);
+              });
+
+              //Devolve os bandeiras disponíveis para Crédito
+              $.each(response.paymentMethods.CREDIT_CARD.options,  function(index, option){
+                console.log(option.name);
+                //console.log(option.images.MEDIUM.path);
+                console.log(option.displayName);
+              });
+            },
+            error: function (response) {
+              // Callback para chamadas que falharam.
+              var errors = [];
+              for ( var code in response.errors ){
+                errors.push(response.errors[code]);
+              }
+              showError(errors.toString());
+            },
+            complete: function (response) {
+              // Callback para todas chamadas.
+            }
+          });
       </script>
     
   </body>
