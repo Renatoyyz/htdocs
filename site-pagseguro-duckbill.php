@@ -11,8 +11,9 @@ $app->get('/payment_duckbill', function(){
     $order = [
         "vltotal"=>234.34,
         "cardBin"=>4111111111111111,
-        "yearCard"=>22,
-        "mouthCard"=>3
+        "yearCard"=>2023,
+        "mouthCard"=>3,
+        "cpf"=>"44606396024"
     ];
 
     $page = new Page([
