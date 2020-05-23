@@ -5,6 +5,18 @@ use \GuzzleHttp\Client;
 use Hcode\PagSeguro\Config;
 use Hcode\PagSeguro\Transporter;
 
+$app->post("/payment_duckbill/credit", function(){
+
+    echo("Renato Oliveira");
+    
+    // exit;
+
+    var_dump($_POST);
+    // // echo json_encode($_POST);
+    //exit;
+
+});
+
 //order.vltotal
 $app->get('/payment_duckbill', function(){
 
@@ -53,12 +65,4 @@ $app->get('/payment_duckbill/teste', function(){
 
 	// $page->setTpl("payment_duckbill");
     exit;
-});
-
-$app->post('/payment_duckbill/credit', function(){
-
-    //var_dump($_POST);
-    echo json_encode($_POST);
-    exit;
-
 });

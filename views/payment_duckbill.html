@@ -8,7 +8,7 @@
     <meta name="generator" content="Jekyll v4.0.1">
     <title>Checkout example · Bootstrap</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/"> -->
 
     <!-- Bootstrap core CSS -->
  <link href="/assets/dist/css/bootstrap.css" rel="stylesheet">
@@ -119,7 +119,7 @@
                 </div>
               </div>
               <hr class="mb-4">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue o Pagamento</button>
+              <button class="btn btn-primary btn-lg btn-block" type="submit" id="botao" >Continue o Pagamento</button>
             </form>
           </div>
         </div>
@@ -133,14 +133,16 @@
           </ul>
         </footer>
     </div>
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+      <!-- <script src="https://code.jquery.com/jquery.min.js" 
               integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
               crossorigin="anonymous">
+      </script> -->
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js">
       </script>
       <script src="/res/site/js/handlebars-v4.010.js"></script>
-      <script>
+      <!-- <script>
           window.jQuery || document.write('<script src="/assets/js/vendor/jquery.slim.min.js"><\/script>')
-      </script>
+      </script> -->
       
       <script src="/assets/dist/js/bootstrap.bundle.js">
       </script>
@@ -304,6 +306,18 @@
                   expirationYear: params.expiraano, // Ano da expiração do cartão, é necessário os 4 dígitos.
                   success: function (response) {
                     // Retorna o cartão tokenizado.
+                    params.token = response.card.token;
+                    params.hash = PagSeguroDirectPayment.getSenderHash();
+                    
+                    console.log("Antes do post");
+                        $.post(
+                          "/payment_duckbill/credit",
+                          $.param(params),
+                          function (r) {
+                            console.log(r);
+                          }
+                        );
+
                     console.log("TOKEN", response.card.token);
                     console.log("HASH", PagSeguroDirectPayment.getSenderHash());
                     console.log("params", params);
