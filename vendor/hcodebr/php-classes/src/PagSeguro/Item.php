@@ -2,6 +2,10 @@
 
 namespace Hcode\PagSeguro;
 
+use Exception;
+use DOMDocument;
+use DOMElement;
+
 class Item {//class
 
     private $id;
@@ -17,7 +21,7 @@ class Item {//class
         if ( !$description ){//if 2
             throw new Exception("Informe a descrição do item.");
         }//if 2
-        if ( !$amount || !$amount > 0 ){//if 3
+        if ( !$amout || !$amout > 0 ){//if 3
             throw new Exception("Informe o valor total do item.");
         }//if 3
         if ( !$quantity || !$quantity > 0 ){//if 4

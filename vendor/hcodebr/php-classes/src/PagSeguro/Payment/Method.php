@@ -1,5 +1,5 @@
 <?php
-namespace \Hcode\PagSeguro\Payment;
+namespace Hcode\PagSeguro\Payment;
 
 class Method {//class
 

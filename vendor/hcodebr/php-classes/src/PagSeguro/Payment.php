@@ -2,7 +2,12 @@
 
 namespace Hcode\PagSeguro;
 
-class Payment {//class
+use Exception;
+use DOMDocument;
+use DOMElement;
+use Hcode\PagSeguro\Payment\Method;
+
+class Payment {//classz
 
     private $mode = "default";
     private $currency = "BRL";
@@ -19,10 +24,36 @@ class Payment {//class
 
         $this->sender = $sender;
         $this->shipping = $shipping;
-        $this->reference = $reference;
+        $this->reference = $reference;//Referencia é o número da sua loja
         $this->extraAmount = number_format($extraAmount, 2 , ".", "");
 
     }//__construct
+
+    public function addItem(Item $item){//addItem
+
+        array_push($this->items, $item);
+
+    }//addItem
+
+    public function setCreditCard(CreditCard $creditcard){//setCreditCard
+
+        $this->creditCard = $creditcard;
+        $this->method = Method::CREDIT_CARD;
+
+    }//setCreditCard
+
+    public function setBank(Bank $bank){//setBank
+
+        $this->bank = $bank;
+        $this->method = Method::DEBIT;
+
+    }//setBank
+
+    public function SetBoleto(){//SetBoleto
+
+        $this->method = Method::BOLETO;
+
+    }//SetBoleto
 
     public function getDOMDocument():DOMDocument{//getDOMDocument
 

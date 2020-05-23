@@ -76,6 +76,11 @@
               <!-- Campo criado na função do pagseguro PagSeguroDirectPayment.getInstallments-->
               <input type="hidden" name="totalamount" id="total_amount" >
 
+              <input type="hidden" name="cpf" id="cpf_usuario" value="<?php echo htmlspecialchars( $order["cpf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" >
+              <input type="hidden" name="ddd" id="ddd_usuario" value="<?php echo htmlspecialchars( $order["ddd"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" >
+              <input type="hidden" name="phone" id="phone_usuario" value="<?php echo htmlspecialchars( $order["phone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" >
+
+
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="cc-name">Nome no Cartão</label>
@@ -309,7 +314,7 @@
                     params.token = response.card.token;
                     params.hash = PagSeguroDirectPayment.getSenderHash();
                     
-                    console.log("Antes do post");
+                    // console.log("Antes do post");
                         $.post(
                           "/payment_duckbill/credit",
                           $.param(params),
@@ -318,9 +323,9 @@
                           }
                         );
 
-                    console.log("TOKEN", response.card.token);
-                    console.log("HASH", PagSeguroDirectPayment.getSenderHash());
-                    console.log("params", params);
+                    // console.log("TOKEN", response.card.token);
+                    // console.log("HASH", PagSeguroDirectPayment.getSenderHash());
+                    // console.log("params", params);
                   },
                   error: function (response) {
                     // Callback para chamadas que falharam.
