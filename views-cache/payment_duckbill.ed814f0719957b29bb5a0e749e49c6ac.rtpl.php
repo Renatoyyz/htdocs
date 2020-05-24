@@ -318,8 +318,17 @@
                         $.post(
                           "/payment_duckbill/credit",
                           $.param(params),
-                          function (r) {
-                            console.log(r);
+                          function(u){
+                            var response = JSON.parse(u);
+                            if(response.success === true){
+                              console.log(response);
+                              window.location.href = "/payment_duckbill/success";
+                            }
+                            // else{
+                            //   showError("Não foi possível efetuar o pagamento.");
+                            // }
+
+                            console.log(response.success);
                           }
                         );
 

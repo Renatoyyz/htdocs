@@ -15,11 +15,27 @@ use Hcode\PagSeguro\CreditCard\Holder;
 use Hcode\PagSeguro\Shipping;
 use Hcode\PagSeguro\CreditCard\Installment;
 
+$app->get("/payment_duckbill/success", function(){
+
+    
+    $page = new Page([
+        'header'=>false,
+        'footer'=>false
+    ]);
+
+    $page->setTpl("payment-success", [
+        'order'=>[
+            'idorder'=>1
+        ]
+    ]);
+
+});
+
 $app->post("/payment_duckbill/credit", function(){
 
-    echo "Renato Oliveira";
-    echo "</br>";
-    var_dump($_POST);
+    // echo "Renato Oliveira";
+    // echo "</br>";
+    // var_dump($_POST);
     // // echo json_encode($_POST);
     //exit;
 
