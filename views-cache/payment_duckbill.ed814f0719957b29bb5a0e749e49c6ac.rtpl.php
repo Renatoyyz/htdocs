@@ -277,81 +277,129 @@
 }//valida cpf
 // Função isValidCPF--------------------------------------------------------------------->
 
-// jQuery form-credit-------------------------------------------------------------------->
-          $("#form-credit").on("submit", function(e){//envento botão submit
+// // jQuery form-credit-------------------------------------------------------------------->
+//           $("#form-credit").on("submit", function(e){//envento botão submit
 
-            e.preventDefault();
+//             e.preventDefault();
 
-            $("#form-credit [type=submit]").attr("disabled","disabled");
+//             $("#form-credit [type=submit]").attr("disabled","disabled");
 
-            if(!isValidCPF("<?php echo htmlspecialchars( $order["cpf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>")){
-              showError("Erro no número de CPF");
-            }
+//             if(!isValidCPF("<?php echo htmlspecialchars( $order["cpf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>")){
+//               showError("Erro no número de CPF");
+//             }
 
-            var formData = $(this).serializeArray();
+//             var formData = $(this).serializeArray();
 
             
 
-            var params = {};
+//             var params = {};
 
-            $.each(formData, function(index, field){
+//             $.each(formData, function(index, field){
 
-              params[field.name] = field.value;
+//               params[field.name] = field.value;
  
-            });
+//             });
 
-            //console.log(params);
+//             //console.log(params);
 
-            // Função createCardToken---------------------------------------------------------------------------->
-                PagSeguroDirectPayment.createCardToken({
-                  cardNumber: params.numerocartao, // Número do cartão de crédito
-                  brand: params.brand, // Bandeira do cartão
-                  cvv: params.cvv, // CVV do cartão
-                  expirationMonth: params.expirames, // Mês da expiração do cartão
-                  expirationYear: params.expiraano, // Ano da expiração do cartão, é necessário os 4 dígitos.
-                  success: function (response) {
-                    // Retorna o cartão tokenizado.
-                    params.token = response.card.token;
-                    params.hash = PagSeguroDirectPayment.getSenderHash();
+//             // Função createCardToken---------------------------------------------------------------------------->
+//                 PagSeguroDirectPayment.createCardToken({
+//                   cardNumber: params.numerocartao, // Número do cartão de crédito
+//                   brand: params.brand, // Bandeira do cartão
+//                   cvv: params.cvv, // CVV do cartão
+//                   expirationMonth: params.expirames, // Mês da expiração do cartão
+//                   expirationYear: params.expiraano, // Ano da expiração do cartão, é necessário os 4 dígitos.
+//                   success: function (response) {
+//                     // Retorna o cartão tokenizado.
+//                     params.token = response.card.token;
+//                     params.hash = PagSeguroDirectPayment.getSenderHash();
                     
-                    // console.log("Antes do post");
-                        $.post(
-                          "/payment_duckbill/credit",
-                          $.param(params),
-                          function(u){
-                            var response = JSON.parse(u);
-                            if(response.success === true){
-                              console.log(response);
-                              window.location.href = "/payment_duckbill/success";
-                            }
-                            // else{
-                            //   showError("Não foi possível efetuar o pagamento.");
-                            // }
+//                     // console.log("Antes do post");
+//                         $.post(
+//                           "/payment_duckbill/credit",
+//                           $.param(params),
+//                           function(u){
+//                             var response = JSON.parse(u);
+//                             if(response.success === true){
+//                               window.location.href = "/payment_duckbill/success";
+//                             }
+//                             else{
+//                               showError("Não foi possível efetuar o pagamento.");
+//                             }
+//                           }
+//                         );
 
-                            console.log(response.success);
-                          }
-                        );
+//                     // console.log("TOKEN", response.card.token);
+//                     // console.log("HASH", PagSeguroDirectPayment.getSenderHash());
+//                     // console.log("params", params);
+//                   },
+//                   error: function (response) {
+//                     // Callback para chamadas que falharam.
+//                         var errors = [];
+//                         for (var code in response.errors) {
+//                           errors.push(response.errors[code]);
+//                         }
+//                         showError(errors.toString());
+//                   },
+//                   complete: function (response) {
+//                     // Callback para todas chamadas.
+//                     $("#form-credit [type=submit]").removeAttr("disabled");
+//                   }
+//                 });
+//             // Função createCardToken---------------------------------------------------------------------------->
 
-                    // console.log("TOKEN", response.card.token);
-                    // console.log("HASH", PagSeguroDirectPayment.getSenderHash());
-                    // console.log("params", params);
-                  },
-                  error: function (response) {
-                    // Callback para chamadas que falharam.
-                        var errors = [];
-                        for (var code in response.errors) {
-                          errors.push(response.errors[code]);
-                        }
-                        showError(errors.toString());
-                  },
-                  complete: function (response) {
-                    // Callback para todas chamadas.
-                    $("#form-credit [type=submit]").removeAttr("disabled");
-                  }
-                });
-            // Função createCardToken---------------------------------------------------------------------------->
+//           });//envento botão submit
+// // jQuery form-credit-------------------------------------------------------------------->
 
-          });//envento botão submit
+
+
+// jQuery form-credit-------------------------------------------------------------------->
+$("#form-credit").on("submit", function(e){//envento botão submit
+
+e.preventDefault();
+
+$("#form-credit [type=submit]").attr("disabled","disabled");
+
+if(!isValidCPF("<?php echo htmlspecialchars( $order["cpf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>")){
+  showError("Erro no número de CPF");
+}
+
+var formData = $(this).serializeArray();
+
+
+
+var params = {};
+
+$.each(formData, function(index, field){
+
+  params[field.name] = field.value;
+
+});
+
+params.hash = PagSeguroDirectPayment.getSenderHash();
+
+//console.log(params);
+
+        
+        // console.log("Antes do post");
+            $.post(
+              "/payment_duckbill/debit",
+              $.param(params),
+              function(u){
+                var response = JSON.parse(u);
+                if(response.success === true){
+                  window.location.href = "/payment_duckbill/success/debit";
+                }
+                else{
+                  showError("Não foi possível efetuar o pagamento.");
+                }
+              }
+            );
+
+  
+// Função createCardToken---------------------------------------------------------------------------->
+
+});//envento botão submit
 // jQuery form-credit-------------------------------------------------------------------->
 
       </script>

@@ -110,9 +110,9 @@ class Payment {//classz
                 $creditCard = $payment->appendChild($creditCard);
             break;
             case Method::DEBIT:
-                // $bank = $this->bank->getDOMElement();
-                // $bank = $dom->importNode($bank, true);
-                // $bank = $payment->appendChild($bank);
+                $bank = $this->bank->getDOMElement();
+                $bank = $dom->importNode($bank, true);
+                $bank = $payment->appendChild($bank);
             break;
 
         }//switch

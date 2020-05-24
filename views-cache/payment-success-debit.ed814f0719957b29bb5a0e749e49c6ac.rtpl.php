@@ -32,6 +32,7 @@
     <!-- Custom styles for this template -->
     <link href="/assets/form-validation.css" rel="stylesheet">
   </head>
+
 <body>
 
 <div class="single-product-area">
@@ -42,11 +43,11 @@
                 
                 <div class="jumbotron">
                     <h1 class="display-3">Pedido n° <?php echo htmlspecialchars( $order["idorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?> recebido!</h1>
-                    <p class="lead">Recebemos o seu pedido. Aguarde a confirmação do pagamento.</p>
+                    <p class="lead">Você ainda precisa pagar usando o site do seu banco.</p>
                     <hr class="my-4">
-                    <p>Mas fique tranquilo pois avisaremos por e-mail assim que possível.</p>
+                    <p>Use o botão abaixo para acessar o site do seu banco:</p>
                     <p class="lead">
-                        <a class="btn btn-success btn-lg" href="/profile/orders/<?php echo htmlspecialchars( $order["idorder"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" role="button">Ver meus pedido</a>
+                        <a class="btn btn-success btn-lg" href="<?php echo htmlspecialchars( $order["despaymentlink"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" target="_blank" role="button">Ir para o banco</a>
                     </p>
                 </div>
 
