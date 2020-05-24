@@ -20,6 +20,8 @@ class Config {//class
 
     const MAX_INSTALLMENT_NO_INTEREST = 6;// Máximo de parcelas que a loja assume os juros
     const MAX_INSTALLMENT = 10;//Máximo de parcelas
+
+    const NOTIFICATION_URL = "http://www.teste.maeda-st.com.br/payment/notification";
     
     public static function getAuthentication()
     {//func 1

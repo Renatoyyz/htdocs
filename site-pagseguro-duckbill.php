@@ -31,7 +31,7 @@ $app->post("/payment_duckbill/credit", function(){
         "N/A",
         "Pauliceia",
         "09690100",
-        "São Bernardo do Campo",
+        "Sao Bernardo do Campo",
         "SP",
         "Brasil"
     );
@@ -46,7 +46,7 @@ $app->post("/payment_duckbill/credit", function(){
         "N/A",
         "Pauliceia",
         "09690100",
-        "São Bernardo do Campo",
+        "Sao Bernardo do Campo",
         "SP",
         "Brasil"
     );

@@ -31,7 +31,7 @@
         </item>
     </items>
 <extraAmount>0.00</extraAmount>
-    <reference>R123456</reference>
+<reference>R123456</reference>
 <shipping>
 		<addressRequired>true</addressRequired>
         <address>
@@ -46,7 +46,7 @@
         </address>
         <type>1</type>
         <cost>1.00</cost>
-    </shipping>
+</shipping>
     <creditCard>
         <token>{{token_do_cartao}}</token>
        <installment>

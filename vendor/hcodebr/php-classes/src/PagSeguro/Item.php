@@ -10,10 +10,10 @@ class Item {//class
 
     private $id;
     private $description;
-    private $amout;
+    private $amount;
     private $quantity;
 
-    public function __construct(int $id, string $description,float $amout, float $quantity ){//__construct
+    public function __construct(int $id, string $description,float $amount, float $quantity ){//__construct
 
         if ( !$id || !$id > 0 ){//if 1
             throw new Exception("Informe o ID do item.");
@@ -21,7 +21,7 @@ class Item {//class
         if ( !$description ){//if 2
             throw new Exception("Informe a descrição do item.");
         }//if 2
-        if ( !$amout || !$amout > 0 ){//if 3
+        if ( !$amount || !$amount > 0 ){//if 3
             throw new Exception("Informe o valor total do item.");
         }//if 3
         if ( !$quantity || !$quantity > 0 ){//if 4
@@ -30,7 +30,7 @@ class Item {//class
 
         $this->id = $id;
         $this->description = $description;
-        $this->amout = $amout;
+        $this->amount = $amount;
         $this->quantity = $quantity;
 
     }//__construct
@@ -42,14 +42,17 @@ class Item {//class
         $item = $dom->createElement("item");
         $item = $dom->appendChild($item);
 
-        $description = $dom->createElement("description", $this->description);
-        $description = $item->appendChild($description);
-
         $amount = $dom->createElement("amount", number_format($this->amount, 2, ".", "") );
         $amount = $item->appendChild($amount);
 
+        $id = $dom->createElement("id", $this->id);
+        $id = $item->appendChild($id);
+
         $quantity = $dom->createElement("quantity", $this->quantity);
         $quantity = $item->appendChild($quantity);
+
+        $description = $dom->createElement("description", $this->description);
+        $description = $item->appendChild($description);
 
         return $item;
 
