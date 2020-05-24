@@ -42,6 +42,9 @@ class Shipping {//class
         $shipping = $dom->createElement("shipping");
         $shipping = $dom->appendChild($shipping);
 
+        if( $this->addressRequired === true )
+        {
+
         $address = $this->address->getDOMElement();
         $address = $dom->importNode($address, true);
         $address = $shipping->appendChild($address);
@@ -51,9 +54,11 @@ class Shipping {//class
 
         $type = $dom->createElement("type", $this->type);
         $type = $shipping->appendChild($type);
+       }
 
         $addressRequired = $dom->createElement("addressRequired", ($this->addressRequired) ? "true" : "false");
         $addressRequired = $shipping->appendChild($addressRequired);
+        
 
         return $shipping;
 

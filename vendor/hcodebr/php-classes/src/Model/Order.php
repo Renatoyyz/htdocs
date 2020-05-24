@@ -227,6 +227,36 @@ class Order extends Model {
 
 		return $address;
 	}
+// Vou carregar o idorder nessa classe só para testar
+// Mudar depois
+	public function setPagSeguroTransactionResponse(
+		int $idorder,
+		string $descode,
+		float $vlgrossamount,
+		float $vldisccountamount,
+		float $vlfeeamount,
+		float $vlnetamount,
+		float $extraamount,
+		string $despaymentlink = ""
+	)
+	{//setPagSeguroTransactionResponse
+
+		$sql = new Sql();
+
+		$sql->query("CALL sp_orderspagseguro_save(:idorder, :descode, :vlgrossamount, :vldisccountamount, :vlfeeamount,:vlnetamount, :extraamount, :despaymentlink)",[
+			':idorder'=>$idorder,
+			':descode'=>$descode,
+			':vlgrossamount'=>$vlgrossamount,
+			':vldisccountamount'=>$vldisccountamount,
+			':vlfeeamount'=>$vlfeeamount,
+			':vlnetamount'=>$vlnetamount,
+			':extraamount'=>$extraamount,
+			':despaymentlink'=>$despaymentlink
+		]);
+
+
+
+	}//setPagSeguroTransactionResponse
 
 }
 

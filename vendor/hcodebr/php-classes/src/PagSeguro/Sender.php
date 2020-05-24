@@ -37,7 +37,7 @@ class Sender {//class
         $this->phone = $phone;
         $this->email = $email;
         $this->hash = $hash;
-        $this->ip = $_SERVER["REMOTE_ADDR"];
+        $this->ip = "127.0.0.1";//$_SERVER["REMOTE_ADDR"];
 
     }//__construct
 

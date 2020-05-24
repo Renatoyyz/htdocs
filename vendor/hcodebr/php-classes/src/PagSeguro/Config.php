@@ -18,13 +18,16 @@ class Config {//class
     const SANDBOX_URL_JS = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
     const PRODUCTION_URL_JS = "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
 
+    CONST PRODUCTION_URL_TRANSACTION = "https://ws.pagseguro.uol.com.br/v2/transactions";
+    CONST SANDBOX_URL_TRANSACTION = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions";
+
     const MAX_INSTALLMENT_NO_INTEREST = 6;// Máximo de parcelas que a loja assume os juros
     const MAX_INSTALLMENT = 10;//Máximo de parcelas
 
     const NOTIFICATION_URL = "http://www.teste.maeda-st.com.br/payment/notification";
     
     public static function getAuthentication()
-    {//func 1
+    {//getAuthentication
 
         if( Config::SANDBOX === true )
         {//if 1
@@ -42,21 +45,27 @@ class Config {//class
             ];
           }//else 1
 
-    }//func 1
+    }//getAuthentication
 
     public static function getUrlSessions():string
-    {//func 2
+    {//getUrlSessions
         
         return ( Config::SANDBOX === true ) ? Config::SANDBOX_SESSIONS : Config::PRODUCTION_SESSIONS;
 
-    }//func 2
+    }//getUrlSessions
 
     public static function getUrlJS()
-    {//func 3
+    {//getUrlJS
 
         return ( Config::SANDBOX === true ) ? Config::SANDBOX_URL_JS : Config::PRODUCTION_URL_JS;
 
-    }//func 3
+    }//getUrlJS
+
+    public static function getUrlTransaction(){//getUrlTransaction
+
+        return ( Config::SANDBOX === true ) ? Config::SANDBOX_URL_TRANSACTION : Config::PRODUCTION_URL_TRANSACTION;
+
+    }//getUrlTransaction
 
 }//class
 

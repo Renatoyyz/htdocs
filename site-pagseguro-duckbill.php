@@ -27,8 +27,8 @@ $app->post("/payment_duckbill/credit", function(){
     $phone = new Phone($_POST['ddd'], $_POST['phone']);
     $shippingAddress = new Address(
         "M.M.D.C",
-        "974",
-        "N/A",
+        974,
+        "",
         "Pauliceia",
         "09690100",
         "Sao Bernardo do Campo",
@@ -36,14 +36,14 @@ $app->post("/payment_duckbill/credit", function(){
         "Brasil"
     );
     $birthDate = new DateTime('01-01-1990');
-    $sender = new Sender("Renato Oliveira",$cpf,$birthDate,$phone,"renato@renato.com", $_POST['hash']);
+    $sender = new Sender("Renato Oliveira",$cpf,$birthDate,$phone,"admin@sandbox.pagseguro.com.br", $_POST['hash']);
     $holder = new Holder("Renato Oliveira",$cpf,$birthDate,$phone);
-    $shipping = new Shipping($shippingAddress,$_POST['totalamount'],Shipping::PAC);
-    $installment = new Installment(1, $_POST['totalamount']);
+    $shipping = new Shipping($shippingAddress,"0.00",Shipping::PAC);
+    $installment = new Installment(1, "200.00");
     $billingAddress = new Address(
         "M.M.D.C",
-        "974",
-        "N/A",
+        974,
+        "",
         "Pauliceia",
         "09690100",
         "Sao Bernardo do Campo",
@@ -53,16 +53,24 @@ $app->post("/payment_duckbill/credit", function(){
     $creditCard = new CreditCard($_POST['token'],$installment,$holder,$billingAddress);
 
     $payment = new Payment("0001",$sender,$shipping);
-    $item1 = new Item(1,"O produto 1", 123.45, 1.0);
-    $item2 = new Item(2,"O produto 2", 34.50, 2.0);
+    $item1 = new Item(1,"O produto 1", 100, 1.0);
+    $item2 = new Item(2,"O produto 2", 100, 1.0);
 
     $payment->addItem($item1);
     $payment->addItem($item2);
 
     $payment->setCreditCard($creditCard);
 
-    // $dom = new DOMDocument();
     $dom = $payment->getDOMDocument();
+    
+
+    Transporter::sendTransaction($payment,1 );
+    echo json_encode([
+        'success'=>true
+    ]);
+
+    //$dom = new DOMDocument();
+    //$dom = $payment->getDOMDocument();
 
     // // $test = $creditCard->getDOMElement();
 
@@ -70,9 +78,9 @@ $app->post("/payment_duckbill/credit", function(){
     
     // // $dom->appendChild($testNode);
 
-    echo $dom->saveXML();
+    //echo $dom->saveXML();
     // echo "4";
-    // exit;
+    //exit;
 
 });
 
@@ -80,7 +88,7 @@ $app->post("/payment_duckbill/credit", function(){
 $app->get('/payment_duckbill', function(){
 
     $order = [
-        "vltotal"=>234.34,
+        "vltotal"=>192.45,
         "cardBin"=>4111111111111111,
         "yearCard"=>2023,
         "mouthCard"=>3,
