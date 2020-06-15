@@ -17,6 +17,10 @@ class ComposerStaticInit0b968f58b727f4815ecdee809cf66ddd
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Witcare\\' => 8,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php72\\' => 23,
@@ -27,10 +31,6 @@ class ComposerStaticInit0b968f58b727f4815ecdee809cf66ddd
         array (
             'Psr\\Http\\Message\\' => 17,
         ),
-        'H' => 
-        array (
-            'Hcode\\' => 6,
-        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -40,6 +40,10 @@ class ComposerStaticInit0b968f58b727f4815ecdee809cf66ddd
     );
 
     public static $prefixDirsPsr4 = array (
+        'Witcare\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/witcare/php-classes/src',
+        ),
         'Symfony\\Polyfill\\Php72\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
@@ -55,10 +59,6 @@ class ComposerStaticInit0b968f58b727f4815ecdee809cf66ddd
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
-        'Hcode\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/hcodebr/php-classes/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
